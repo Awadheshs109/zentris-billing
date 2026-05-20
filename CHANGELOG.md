@@ -2,6 +2,8 @@
 
 All notable changes to Zentris Billing are documented here.
 
+---
+
 ## [1.1.0] - 2026-05-21
 
 ### Added
@@ -12,15 +14,19 @@ All notable changes to Zentris Billing are documented here.
 - JSON invoice export
 - End-to-end invoice testing using `test-invoice.ts`
 - Dist build validation
+- InvoiceGenerator public API
+- Browser + Node invoice support
 
 ### Improved
 - Separated exporters from billing core
-- Added template structure for invoices
+- Added invoice template architecture
+- Added output folder generation for local testing
 
 ### Fixed
 - Fixed HtmlExporter import issue
 - Fixed PDF blob generation flow
 - Fixed CommonJS top-level await issue
+- Fixed file lock issue for generated CSV files
 
 ---
 
@@ -28,21 +34,22 @@ All notable changes to Zentris Billing are documented here.
 
 ### Added
 - GitHub Trusted Publisher integration
-- OIDC publishing
+- OIDC publishing support
 - npm provenance support
-- Automated publish workflow
+- Automated GitHub Actions publish flow
 
 ### Fixed
 - npm EOTP authentication issue
-- npm Trusted Publisher setup
-- GitHub Action auth flow
+- Trusted Publisher setup issue
+- GitHub Action auth configuration
 
 ---
 
 ## [1.0.0] - 2026-05-20
 
 ### Added
-- GST calculations
-- Discount calculations
-- Currency formatter
+- GST calculation APIs
+- Discount calculation APIs
+- Currency formatting support
 - Initial billing APIs
+- TypeScript package setup
