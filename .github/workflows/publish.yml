@@ -5,6 +5,10 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -16,7 +20,6 @@ jobs:
         with:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
-          scope: "@awadheshs109"
 
       - run: npm ci
 
@@ -25,5 +28,3 @@ jobs:
       - run: npm run test:run
 
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
