@@ -1,26 +1,27 @@
-import {Customer} from './customer';
-import {InvoiceItem} from './invoice-item';
+import { InvoiceItem } from "./invoice-item";
 
+// src/models/invoice.ts
 export interface Invoice {
+  invoiceNo: string;
+  date: string;
 
- customer:Customer;
+  company: {
+    name: string;
+    address: string;
+    phone: string;
+    email?: string;
+  };
 
- items:InvoiceItem[];
+  customer: {
+    name: string;
+    company?: string;
+    address: string;
+    email?: string;
+  };
 
- tax:number;
+  items: InvoiceItem[];
 
- discount:number;
-
- invoiceId?:string;
-
- subtotal?:number;
-
- taxAmount?:number;
-
- discountAmount?:number;
-
- total?:number;
-
- generatedDate?:string;
-
+  discount?: number;
+  tax?: number;
+  notes?: string;
 }

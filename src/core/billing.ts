@@ -12,7 +12,7 @@ import {
 } from './currency';
 
 import {
- createInvoice
+ InvoiceCalculator
 } from './invoice';
 
 
@@ -26,7 +26,7 @@ export class Billing{
 
  static formatCurrency=formatCurrency;
 
- static createInvoice=createInvoice;
+ static InvoiceCalculator=InvoiceCalculator;
  static getVersion(): string {
    return "1.0.16";
 }
