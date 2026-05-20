@@ -55,3 +55,12 @@ docs/build/
 # examples local installs
 examples/**/node_modules/
 .npmrc
+# tokens
+.npmrc
+token.txt
+
+# dependencies
+node_modules
+
+# build
+dist
