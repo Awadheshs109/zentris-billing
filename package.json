@@ -1,0 +1,56 @@
+{
+  "name": "@zentris/billing",
+  "version": "1.0.0",
+  "description": "Framework-independent TypeScript billing library for Angular, React, Vue, Node.js and JavaScript projects",
+  "author": "Awadhesh Sharma",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "billing",
+    "invoice",
+    "gst",
+    "tax",
+    "typescript",
+    "javascript",
+    "react",
+    "angular",
+    "vue",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Awadheshs109/zentris-billing.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Awadheshs109/zentris-billing/issues"
+  },
+  "homepage": "https://github.com/Awadheshs109",
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "eslint": "^10.4.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
+  }
+}
