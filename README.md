@@ -13,7 +13,8 @@ Supports:
 ✅ JSON export  
 ✅ HTML invoice templates  
 ✅ Browser + Node support  
-✅ CI/CD npm publishing
+✅ GitHub Actions CI/CD publishing  
+✅ npm Trusted Publisher + Provenance
 
 ---
 
@@ -34,12 +35,12 @@ const gst = Billing.calculateGST(1000, 18);
 
 console.log(gst);
 
-//180
+// 180
 ```
 
 ---
 
-# Invoice Example
+## Invoice Example
 
 ```ts
 import { InvoiceGenerator } from "@awadheshs109/billing";
@@ -91,7 +92,7 @@ const invoice = {
 
 ---
 
-# Generate HTML Invoice
+## Generate HTML
 
 ```ts
 const html = InvoiceGenerator.toHTML(invoice);
@@ -99,7 +100,7 @@ const html = InvoiceGenerator.toHTML(invoice);
 
 ---
 
-# Generate CSV
+## Generate CSV
 
 ```ts
 const csv = InvoiceGenerator.toCSV(invoice);
@@ -107,7 +108,7 @@ const csv = InvoiceGenerator.toCSV(invoice);
 
 ---
 
-# Generate JSON
+## Generate JSON
 
 ```ts
 const json = InvoiceGenerator.toJSON(invoice);
@@ -115,7 +116,7 @@ const json = InvoiceGenerator.toJSON(invoice);
 
 ---
 
-# Generate PDF
+## Generate PDF
 
 ```ts
 const pdf = InvoiceGenerator.toPDF(invoice);
@@ -123,16 +124,20 @@ const pdf = InvoiceGenerator.toPDF(invoice);
 
 ---
 
-# Save PDF in Node
+## Save PDF in Node.js
 
 ```ts
 import fs from "fs";
 
-const pdf = InvoiceGenerator.toPDF(invoice);
+async function save() {
+  const pdf = InvoiceGenerator.toPDF(invoice);
 
-const buffer = Buffer.from(await pdf.arrayBuffer());
+  const buffer = Buffer.from(await pdf.arrayBuffer());
 
-fs.writeFileSync("invoice.pdf", buffer);
+  fs.writeFileSync("invoice.pdf", buffer);
+}
+
+save();
 ```
 
 ---
@@ -160,9 +165,9 @@ fs.writeFileSync("invoice.pdf", buffer);
 
 ---
 
-## Development
+## Local Development
 
-Build:
+Build package:
 
 ```bash
 npm run build
@@ -174,7 +179,7 @@ Run tests:
 npm run test:run
 ```
 
-Local invoice validation:
+Validate end-to-end from dist:
 
 ```bash
 npx tsx test-invoice.ts
@@ -184,7 +189,7 @@ npx tsx test-invoice.ts
 
 ## Release Process
 
-Version update:
+Update package version:
 
 ```bash
 npm version patch --no-git-tag-version
@@ -194,13 +199,13 @@ Commit:
 
 ```bash
 git add .
-git commit -m "development: add feature"
+git commit -m "feat: add invoice feature"
 ```
 
-Tag:
+Create release tag:
 
 ```bash
-git tag v1.1.0
+git tag v1.0.31
 git push
 git push --tags
 ```
@@ -225,6 +230,18 @@ CHANGELOG.md
 
 ---
 
+## Upcoming Features
+
+- Company logo support
+- QR / UPI payment support
+- GST invoice templates
+- Invoice print support
+- Multiple invoice themes
+- Invoice numbering system
+- Multi-currency support
+
+---
+
 ## License
 
 MIT
@@ -235,6 +252,6 @@ MIT
 
 :contentReference[oaicite:0]{index=0}
 
-Package:
+## Package
 
 :contentReference[oaicite:1]{index=1}

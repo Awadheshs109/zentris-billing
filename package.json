@@ -45,7 +45,7 @@
   "bugs": {
     "url": "https://github.com/Awadheshs109/zentris-billing/issues"
   },
-  "homepage": "https://github.com/Awadheshs109",
+  "homepage": "https://github.com/Awadheshs109/zentris-billing",
   "devDependencies": {
     "@types/node": "^25.9.1",
     "conventional-changelog-cli": "^5.0.0",
