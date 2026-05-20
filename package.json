@@ -1,6 +1,6 @@
 {
   "name": "@awadheshs109/billing",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "Framework-independent TypeScript billing library for Angular, React, Vue, Node.js and JavaScript projects",
   "author": "Awadhesh Sharma",
   "license": "MIT",
@@ -23,7 +23,8 @@
     "dev": "tsup src/index.ts --watch",
     "test": "vitest",
     "test:run": "vitest run",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "keywords": [
     "billing",
@@ -47,6 +48,7 @@
   "homepage": "https://github.com/Awadheshs109",
   "devDependencies": {
     "@types/node": "^25.9.1",
+    "conventional-changelog-cli": "^5.0.0",
     "eslint": "^10.4.0",
     "tsup": "^8.5.1",
     "tsx": "^4.22.3",
