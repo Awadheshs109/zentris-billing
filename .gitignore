@@ -54,3 +54,4 @@ docs/build/
 
 # examples local installs
 examples/**/node_modules/
+.npmrc
