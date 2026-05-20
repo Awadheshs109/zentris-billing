@@ -25,3 +25,4 @@ export * from "./core/currency";
 export * from "./core/invoice";
 
 export * from './generators/invoice-generator';
+export * from './version';
