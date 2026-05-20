@@ -27,5 +27,8 @@ export class Billing{
  static formatCurrency=formatCurrency;
 
  static createInvoice=createInvoice;
+ static getVersion(): string {
+   return "1.0.16";
+}
 
 }
