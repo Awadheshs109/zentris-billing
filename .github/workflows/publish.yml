@@ -27,4 +27,4 @@ jobs:
 
       - run: npm run test:run
 
-      - run: npm publish --access public
+      - run: npm publish --provenance --access public
