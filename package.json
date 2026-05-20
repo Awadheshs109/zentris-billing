@@ -1,6 +1,6 @@
 {
   "name": "@awadheshs109/billing",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Framework-independent TypeScript billing library for Angular, React, Vue, Node.js and JavaScript projects",
   "author": "Awadhesh Sharma",
   "license": "MIT",
