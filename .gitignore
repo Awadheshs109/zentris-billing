@@ -64,3 +64,8 @@ node_modules
 
 # build
 dist
+node_modules
+dist
+.npmrc
+token.txt
+.env
