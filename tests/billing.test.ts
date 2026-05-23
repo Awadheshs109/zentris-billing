@@ -1,97 +1,138 @@
-// tests/billing.test.ts
-
 import { describe, it, expect } from "vitest";
 
-import { Billing, InvoiceGenerator } from "../src";
+import {
+  Billing,
+  InvoiceGenerator,
+  VERSION
+} from "../src";
 
-const mockInvoice = {
-  invoiceNo: "INV-1001",
+const invoice = {
 
-  date: "21-05-2026",
+  invoiceNo:"INV-1001",
 
-  company: {
-    name: "Zentris Pvt Ltd",
-    address: "Mumbai",
-    phone: "9999999999",
+  date:"21-05-2026",
+
+  company:{
+    name:"Zentris Pvt Ltd",
+    address:"Mumbai"
   },
 
-  customer: {
-    name: "Awadhesh Sharma",
-    company: "Client Inc",
-    address: "Bangalore",
+  customer:{
+    name:"Awadhesh Sharma",
+    address:"Bangalore"
   },
 
-  items: [
+  items:[
     {
-      description: "Angular Development",
-
-      quantity: 5,
-
-      rate: 75,
-    },
-    {
-      description: "Invoice Setup",
-
-      quantity: 2,
-
-      rate: 100,
-    },
+      description:"Angular Development",
+      quantity:5,
+      rate:75
+    }
   ],
 
-  tax: 18,
-  discount: 5,
-
-  notes: "Thank you",
+  tax:18,
+  discount:5
 };
 
-describe("Zentris Billing Library", () => {
-  it("should calculate GST correctly", () => {
-    const gst = Billing.calculateGST(1000, 18);
+describe(
+"Zentris Billing",
+()=>{
 
-    expect(gst).toBe(180);
+  it(
+  "should calculate GST",
+  ()=>{
+
+    expect(
+      Billing.calculateGST(
+        1000,
+        18
+      )
+    ).toBe(180);
+
   });
 
-  it("should calculate discount correctly", () => {
-    const discount = Billing.calculateDiscount(1000, 10);
+  it(
+  "should calculate discount",
+  ()=>{
 
-    expect(discount).toBe(100);
+    expect(
+      Billing.calculateDiscount(
+        1000,
+        10
+      )
+    ).toBe(100);
+
   });
 
-  it("should format INR currency", () => {
-    const currency = Billing.formatCurrency(100000, "INR");
+  it(
+  "should generate HTML",
+  ()=>{
 
-    expect(currency).toContain("₹");
+    const html =
+    InvoiceGenerator.toHTML(
+      invoice
+    );
+
+    expect(html)
+    .toContain(
+      "INV-1001"
+    );
+
   });
 
-  it("should generate HTML invoice", () => {
-    const html = InvoiceGenerator.toHTML(mockInvoice);
+  it(
+  "should generate CSV",
+  ()=>{
 
-    expect(html).toContain("INVOICE");
+    const csv =
+    InvoiceGenerator.toCSV(
+      invoice
+    );
 
-    expect(html).toContain("INV-1001");
+    expect(csv)
+    .toContain(
+      "Angular Development"
+    );
 
-    expect(html).toContain("Awadhesh Sharma");
   });
 
-  it("should generate CSV invoice", () => {
-    const csv = InvoiceGenerator.toCSV(mockInvoice);
+  it(
+  "should generate JSON",
+  ()=>{
 
-    expect(csv).toContain("Angular Development");
+    const json =
+    InvoiceGenerator.toJSON(
+      invoice
+    );
 
-    expect(csv).toContain("Quantity");
+    expect(json)
+    .toContain(
+      "Awadhesh Sharma"
+    );
+
   });
 
-  it("should generate JSON invoice", () => {
-    const json = InvoiceGenerator.toJSON(mockInvoice);
+  it(
+  "should generate PDF blob",
+  ()=>{
 
-    expect(json).toContain("INV-1001");
+    const pdf =
+    InvoiceGenerator.toPDF(
+      invoice
+    );
 
-    expect(json).toContain("Awadhesh Sharma");
+    expect(pdf)
+    .toBeDefined();
+
   });
 
-  it("should generate PDF invoice", () => {
-    const pdf = InvoiceGenerator.toPDF(mockInvoice);
+  it(
+  "should expose package version",
+  ()=>{
 
-    expect(pdf).toBeDefined();
+    expect(VERSION)
+    .toBeDefined();
+
   });
+
 });

@@ -1,25 +1,34 @@
+import { CsvExporter } from "../exporters/csv-exporter";
+import { HtmlExporter } from "../exporters/html-exporter";
+import { JsonExporter } from "../exporters/json-exporter";
+import { PdfExporter } from "../exporters/pdf-exporter";
 
-import {PdfExporter} from '../exporters/pdf-exporter';
-import {CsvExporter} from '../exporters/csv-exporter';
-import {JsonExporter} from '../exporters/json-exporter';
-import { HtmlExporter } from '../exporters/html-exporter';
+export class InvoiceGenerator {
+  static toHTML(
+    invoice: any,
+    options?: {
+      template?: "classic" | "gst";
+    },
+  ) {
+    return HtmlExporter.generate(invoice, options);
+  }
 
-export class InvoiceGenerator{
+  static toCSV(invoice: any) {
+    return CsvExporter.generate(invoice);
+  }
 
-   static toPDF(invoice:any){
-      return PdfExporter.generate(invoice);
-   }
+  static toJSON(invoice: any) {
+    return JsonExporter.generate(invoice);
+  }
 
-   static toCSV(invoice:any){
-      return CsvExporter.generate(invoice);
-   }
+  static async toPDF(
+    invoice: any,
+    options?: {
+      template?: "classic" | "gst";
+    },
+  ): Promise<Buffer> {
+    const html = this.toHTML(invoice, options);
 
-   static toJSON(invoice:any){
-      return JsonExporter.generate(invoice);
-   }
-
-   static toHTML(invoice:any){
-      return HtmlExporter.generate(invoice);
-   }
-
+    return await PdfExporter.generate(html);
+  }
 }
