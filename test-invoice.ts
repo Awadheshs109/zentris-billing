@@ -1,196 +1,246 @@
 import fs from "node:fs";
 
-import { InvoiceGenerator, VERSION } from "./dist/index.js";
+import {
+  InvoiceGenerator,
+  VERSION,
+} from "./dist/index.js";
 
-async function main() {
-  console.log("Zentris Billing Version:", VERSION);
+console.log(
+  "Zentris Billing Version:",
+  VERSION,
+);
 
-  const invoice: any = {
-    type: "TAX INVOICE",
+const invoice = {
+  type: "TAX INVOICE",
 
-    invoiceNo: "INV-2026-1001",
+  invoiceNo: "INV-2026-1001",
 
-    date: "21-05-2026",
+  date: "21-05-2026",
 
-    dueDate: "30-05-2026",
+  dueDate: "30-05-2026",
 
-    paymentMode: "UPI / Bank Transfer",
+  currency: "INR",
 
-    status: "Pending",
+  company: {
+    name: "Zentris Pvt Ltd",
 
-    currency: "INR",
+    address:
+      "Mumbai, Maharashtra, India",
 
-   
+    phone: "+91 9999999999",
 
-    customer: {
-      name: "Rahul Verma",
+    email: "support@zentris.com",
 
-      company: "TechNova Solutions",
+    gstNumber: "27ABCDE1234F1Z5",
 
-      address: "HSR Layout, Bangalore, Karnataka",
+    panNumber: "ABCDE1234F",
 
-      phone: "+91 8888888888",
+    website: "https://zentris.com",
+  },
 
-      gst: "29ABCDE1234F1Z8",
+  customer: {
+    name: "Rahul Verma",
+
+    email: "rahul@example.com",
+
+    company:
+      "TechNova Solutions",
+
+    address:
+      "HSR Layout, Bangalore, Karnataka",
+
+    phone: "+91 8888888888",
+
+    gstNumber:
+      "29ABCDE1234F1Z8",
+  },
+
+  payment: {
+    mode: "mixed",
+
+    paidAmount: 50000,
+
+    dueAmount: 25000,
+
+    status: "partial",
+
+    udhar: true,
+
+    transactions: [
+      {
+        mode: "upi",
+
+        amount: 30000,
+
+        reference: "UPI123456",
+      },
+
+      {
+        mode: "bank",
+
+        amount: 20000,
+
+        reference: "BANK9988",
+      },
+    ],
+  },
+
+  items: [
+    {
+      description:
+        "Angular Dashboard Development",
+
+      hsn: "998314",
+
+      quantity: 2,
+
+      rate: 12000,
     },
 
-    items: [
-      {
-        description: "Angular Dashboard Development",
+    {
+      description:
+        "React Admin Panel Setup",
 
-        hsn: "998314",
+      hsn: "998314",
 
-        quantity: 2,
+      quantity: 1,
 
-        rate: 12000,
-      },
+      rate: 18000,
+    },
 
-      {
-        description: "React Admin Panel Setup",
+    {
+      description:
+        "Node.js Backend APIs",
 
-        hsn: "998314",
+      hsn: "998314",
 
-        quantity: 1,
+      quantity: 4,
 
-        rate: 18000,
-      },
+      rate: 8000,
+    },
+  ],
 
-      {
-        description: "Node.js Backend APIs",
+  tax: 18,
 
-        hsn: "998314",
+  discount: 5,
 
-        quantity: 4,
+  transport: "Blue Dart",
 
-        rate: 8000,
-      },
+  eway: "78456378",
 
-      {
-        description: "Authentication Integration",
+  amountWords:
+    "Two lakh ninety thousand only",
 
-        hsn: "998314",
+  notes:
+    "Payment due within 15 days.",
 
-        quantity: 2,
+  signature: "Awadhesh Sharma",
 
-        rate: 5000,
-      },
+  features: {
+    showSellerGST: true,
+    showBuyerGST: true,
+    showPAN: true,
+    showTransport: true,
+    showEWay: true,
+    showBankDetails: true,
+    showTerms: true,
+    showSignature: true,
+    showSoftwareCredit: true,
+    showBranchDetails: true,
+    showPaymentDetails: true,
+    showPaymentTransactions: true,
+    showAmountWords: true,
+  },
 
-      {
-        description: "JWT Security Setup",
+  branding: {
+    showSoftwareCredit: true,
 
-        hsn: "998314",
+    softwareCreditText:
+      "Generated using Zentris Billing",
 
-        quantity: 1,
+    logoText: "ZENTRIS",
 
-        rate: 4000,
-      },
+    logoSubText:
+      "Billing Engine",
+  },
 
-      {
-        description: "Invoice PDF Generation Module",
+  theme: {
+    primaryColor: "#221b67",
 
-        hsn: "998314",
+    accentColor: "#009688",
+  },
+};
 
-        quantity: 3,
-
-        rate: 6000,
-      },
-
-      {
-        description: "MongoDB Optimization",
-
-        hsn: "998314",
-
-        quantity: 2,
-
-        rate: 4500,
-      },
-
-      {
-        description: "Payment Gateway Integration",
-
-        hsn: "998314",
-
-        quantity: 1,
-
-        rate: 9000,
-      },
-
-      {
-        description: "GST Billing Logic",
-
-        hsn: "998314",
-
-        quantity: 5,
-
-        rate: 2500,
-      },
-
-      {
-        description: "Responsive UI Enhancement",
-
-        hsn: "998314",
-
-        quantity: 6,
-
-        rate: 1500,
-      },
-
-      {
-        description: "Dark Theme Support",
-
-        hsn: "998314",
-
-        quantity: 2,
-
-        rate: 2200,
-      }
-    ],
-
-    tax: 18,
-
-    discount: 5,
-
-    transport: "Blue Dart",
-
-    eway: "78456378",
-
-    place: "Maharashtra",
-
-    amountWords: "Two lakh ninety thousand only",
-
-    notes:
-      "Payment due within 15 days. Thank you for choosing Zentris Billing.",
-
-    signature: "Awadhesh Sharma",
-  };
+async function main() {
 
   if (!fs.existsSync("output")) {
+
     fs.mkdirSync("output");
   }
 
-  const selectedTemplate: "classic" | "gst" = "gst";
+  const selectedTemplate: | "classic" | "gst" = "classic";
 
-  const html = InvoiceGenerator.toHTML(invoice, {
-    template: selectedTemplate,
-  });
+  const html =
+    InvoiceGenerator.toHTML(
+      invoice,
+      {
+        template:
+          selectedTemplate,
+      },
+    );
 
-  const pdf = await InvoiceGenerator.toPDF(invoice, {
-    template: selectedTemplate,
-  });
+  const pdf =
+    await InvoiceGenerator.toPDF(
+      invoice,
+      {
+        template:
+          selectedTemplate,
+      },
+    );
 
-  const csv = InvoiceGenerator.toCSV(invoice);
+  const csv =
+    InvoiceGenerator.toCSV(
+      invoice,
+    );
 
-  const json = InvoiceGenerator.toJSON(invoice);
+  const json =
+    InvoiceGenerator.toJSON(
+      invoice,
+    );
 
-  fs.writeFileSync("output/invoice.html", html);
+  fs.writeFileSync(
+    "output/invoice.html",
+    html,
+  );
 
-  fs.writeFileSync("output/invoice.csv", csv);
+  /**
+   * Temporary placeholder PDF.
+   *
+   * Opens correctly in browser if renamed to .html.
+   */
 
-  fs.writeFileSync("output/invoice.json", json);
+  fs.writeFileSync(
+    "output/invoice.pdf",
+    pdf,
+  );
 
-  fs.writeFileSync("output/invoice.pdf", pdf);
+  fs.writeFileSync(
+    "output/invoice.csv",
+    csv,
+  );
 
-  console.log("All invoice files generated successfully");
+  fs.writeFileSync(
+    "output/invoice.json",
+    json,
+  );
+
+  console.log(
+    "Invoice files generated successfully",
+  );
+
+  console.log(
+    "Temporary PDF generated at output/invoice.pdf",
+  );
 }
 
 main().catch(console.error);

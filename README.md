@@ -1,20 +1,32 @@
 # Zentris Billing
 
-Framework-independent TypeScript billing and invoice generation library for Angular, React, Vue, Node.js and JavaScript applications.
+Modern TypeScript billing & invoice generation library for Angular, React, Vue, Node.js and JavaScript applications.
 
-Supports:
+Generate professional invoices in:
 
-✅ GST / Tax calculations  
-✅ Discount calculations  
-✅ Currency formatting  
-✅ Invoice generation  
-✅ PDF export  
-✅ CSV export  
-✅ JSON export  
-✅ HTML invoice templates  
-✅ Browser + Node support  
-✅ GitHub Actions CI/CD publishing  
-✅ npm Trusted Publisher + Provenance
+- HTML
+- PDF
+- CSV
+- JSON
+
+Supports GST invoices, tax calculation, discounts, payment tracking, invoice templates and multi-framework integration.
+
+---
+
+## Features
+
+- TypeScript-first architecture
+- Framework independent
+- GST & tax calculation utilities
+- Invoice summary calculations
+- Professional HTML invoice templates
+- PDF invoice generation using Puppeteer
+- CSV & JSON export support
+- Multi-payment transaction support
+- Currency formatting
+- Custom branding & themes
+- Lightweight API
+- ESM + CommonJS support
 
 ---
 
@@ -26,92 +38,47 @@ npm install @awadheshs109/billing
 
 ---
 
-## Quick Start
+## Quick Example
 
 ```ts
-import { Billing } from "@awadheshs109/billing";
-
-const gst = Billing.calculateGST(1000, 18);
-
-console.log(gst);
-
-// 180
-```
-
----
-
-## Invoice Example
-
-```ts
-import { InvoiceGenerator } from "@awadheshs109/billing";
+import {
+  InvoiceGenerator
+} from "@awadheshs109/billing";
 
 const invoice = {
   invoiceNo: "INV-1001",
 
-  date: "21-05-2026",
+  date: "25-05-2026",
+
+  currency: "INR",
 
   company: {
     name: "Zentris Pvt Ltd",
-
-    address: "Mumbai",
-
-    phone: "+91 999999999",
+    address: "Mumbai, India",
+    phone: "+91 9999999999"
   },
 
   customer: {
-    name: "Awadhesh Sharma",
-
-    company: "Client Company",
-
-    address: "Bangalore",
+    name: "Rahul Verma",
+    email: "rahul@example.com"
   },
 
   items: [
     {
-      description: "Angular Development",
-
-      quantity: 5,
-
-      rate: 75,
-    },
-
-    {
-      description: "Invoice Setup",
-
+      description: "Angular Dashboard",
       quantity: 2,
-
-      rate: 100,
-    },
+      rate: 12000
+    }
   ],
 
   tax: 18,
-
-  discount: 5,
+  discount: 5
 };
-```
 
----
+const html =
+  InvoiceGenerator.toHTML(invoice);
 
-## Generate HTML
-
-```ts
-const html = InvoiceGenerator.toHTML(invoice);
-```
-
----
-
-## Generate CSV
-
-```ts
-const csv = InvoiceGenerator.toCSV(invoice);
-```
-
----
-
-## Generate JSON
-
-```ts
-const json = InvoiceGenerator.toJSON(invoice);
+console.log(html);
 ```
 
 ---
@@ -119,126 +86,146 @@ const json = InvoiceGenerator.toJSON(invoice);
 ## Generate PDF
 
 ```ts
-const pdf = InvoiceGenerator.toPDF(invoice);
+import fs from "node:fs";
+
+const pdf =
+  await InvoiceGenerator.toPDF(invoice);
+
+fs.writeFileSync(
+  "invoice.pdf",
+  pdf
+);
 ```
 
 ---
 
-## Save PDF in Node.js
+## Generate GST Invoice Template
 
 ```ts
-import fs from "fs";
-
-async function save() {
-  const pdf = InvoiceGenerator.toPDF(invoice);
-
-  const buffer = Buffer.from(await pdf.arrayBuffer());
-
-  fs.writeFileSync("invoice.pdf", buffer);
-}
-
-save();
+const html =
+  InvoiceGenerator.toHTML(
+    invoice,
+    {
+      template: "gst"
+    }
+  );
 ```
 
 ---
 
-## Available APIs
+## Export Formats
 
-### Billing
+### HTML
 
-| Method                             | Description        |
-| ---------------------------------- | ------------------ |
-| calculateGST(amount,tax)           | Calculate GST      |
-| calculateDiscount(amount,discount) | Calculate discount |
-| formatCurrency(amount,currency)    | Currency formatter |
-
----
-
-### InvoiceGenerator
-
-| Method   | Description           |
-| -------- | --------------------- |
-| toHTML() | Generate invoice HTML |
-| toCSV()  | Export CSV            |
-| toJSON() | Export JSON           |
-| toPDF()  | Export PDF            |
-
----
-
-## Local Development
-
-Build package:
-
-```bash
-npm run build
+```ts
+InvoiceGenerator.toHTML(invoice);
 ```
 
-Run tests:
+### PDF
 
-```bash
-npm run test:run
+```ts
+await InvoiceGenerator.toPDF(invoice);
 ```
 
-Validate end-to-end from dist:
+### CSV
 
-```bash
-npx tsx test-invoice.ts
+```ts
+InvoiceGenerator.toCSV(invoice);
+```
+
+### JSON
+
+```ts
+InvoiceGenerator.toJSON(invoice);
 ```
 
 ---
 
-## Release Process
+## Tax Utilities
 
-Update package version:
+```ts
+import {
+  Billing
+} from "@awadheshs109/billing";
 
-```bash
-npm version patch --no-git-tag-version
-```
+const gst =
+  Billing.calculateGST(
+    1000,
+    18
+  );
 
-Commit:
-
-```bash
-git add .
-git commit -m "feat: add invoice feature"
-```
-
-Create release tag:
-
-```bash
-git tag v1.0.31
-git push
-git push --tags
-```
-
-GitHub Actions automatically:
-
-```txt
-build
-→ test
-→ publish npm
+console.log(gst);
 ```
 
 ---
 
-## Changelog
+## Currency Formatting
 
-See:
-
-```txt
-CHANGELOG.md
+```ts
+Billing.formatCurrency(
+  15000,
+  "INR"
+);
 ```
 
 ---
 
-## Upcoming Features
+## Supported Frameworks
 
-- Company logo support
-- QR / UPI payment support
-- GST invoice templates
-- Invoice print support
-- Multiple invoice themes
-- Invoice numbering system
-- Multi-currency support
+- Angular
+- React
+- Vue
+- Next.js
+- Node.js
+- Express
+- NestJS
+- Vanilla JavaScript
+
+---
+
+## Invoice Templates
+
+### Classic Template
+
+Professional clean invoice layout.
+
+### GST Template
+
+Indian GST-compliant invoice design.
+
+---
+
+## Package Exports
+
+```ts
+import {
+  InvoiceGenerator,
+  Billing,
+  TAX_RATES,
+  VERSION
+} from "@awadheshs109/billing";
+```
+
+---
+
+## Version
+
+```ts
+console.log(VERSION);
+```
+
+---
+
+## Roadmap
+
+- QR payment generation
+- Razorpay integration
+- UPI invoice QR
+- Multi-language invoice support
+- Thermal receipt template
+- Email invoice sender
+- React invoice viewer
+- Angular invoice component
 
 ---
 
@@ -250,8 +237,8 @@ MIT
 
 ## Repository
 
-:contentReference[oaicite:0]{index=0}
+GitHub:
+https://github.com/Awadheshs109/zentris-billing
 
-## Package
-
-:contentReference[oaicite:1]{index=1}
+npm:
+https://www.npmjs.com/package/@awadheshs109/billing
