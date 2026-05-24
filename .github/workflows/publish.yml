@@ -26,14 +26,14 @@ jobs:
           node-version: 22
           registry-url: "https://registry.npmjs.org"
 
-      - name: Clear npm cache
+      - name: Clean npm cache
         run: npm cache clean --force
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Rebuild Rollup Native Dependencies
-        run: npm rebuild rollup
+      - name: Install Rollup Native Binary
+        run: npm install @rollup/rollup-linux-x64-gnu --save-dev
 
       - name: Build Package
         run: npm run build
