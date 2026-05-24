@@ -32,8 +32,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Install Rollup Native Binary
+      - name: Install Rollup Linux Binary
         run: npm install @rollup/rollup-linux-x64-gnu --save-dev
+
+      - name: Install Rolldown Linux Binary
+        run: npm install @rolldown/binding-linux-x64-gnu --save-dev
 
       - name: Build Package
         run: npm run build
