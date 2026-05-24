@@ -17,9 +17,7 @@
 
     "skipLibCheck": true,
 
-    "types": ["node"],
-
-    "ignoreDeprecations": "6.0"
+    "types": ["node"]
 
   },
 

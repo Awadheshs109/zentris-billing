@@ -1,15 +1,31 @@
-// exporters/json-exporter.ts
+import { Invoice }
+from "../models/invoice";
 
-export class JsonExporter{
+import { InvoiceCalculator }
+from "../core/invoice";
 
- static generate(invoice:any){
+export class JsonExporter {
 
-   return JSON.stringify(
-       invoice,
-       null,
-       2
-   );
+  static generate(
+    invoice: Invoice,
+  ): string {
 
- }
+    const summary =
+      InvoiceCalculator.summary(
+        invoice.items,
+        invoice.tax || 0,
+        invoice.discount || 0,
+      );
 
+    return JSON.stringify(
+      {
+        invoice,
+        summary,
+        generatedAt:
+          new Date().toISOString(),
+      },
+      null,
+      2,
+    );
+  }
 }

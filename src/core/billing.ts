@@ -28,7 +28,7 @@ export class Billing{
 
  static InvoiceCalculator=InvoiceCalculator;
  static getVersion(): string {
-   return "1.0.16";
+   return "2.0.0";
 }
 
 }

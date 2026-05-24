@@ -1,14 +1,18 @@
-export class PdfExporter{
+import puppeteer from "puppeteer";
 
-  static async generate(
-    html:string
-  ):Promise<Buffer>{
-
-    return Buffer.from(
-      html,
-      "utf-8"
-    );
-
+export class PdfExporter {
+  static async generate(html: string): Promise<Buffer> {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    
+    await page.setContent(html, { waitUntil: "networkidle0" });
+    
+    const pdfBuffer = await page.pdf({
+      format: "A4",
+      printBackground: true
+    });
+    
+    await browser.close();
+    return Buffer.from(pdfBuffer);
   }
-
 }

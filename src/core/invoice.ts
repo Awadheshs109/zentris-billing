@@ -1,23 +1,46 @@
-// core/invoice.ts
+import { BillingSummary } from "../models/billing-summary";
+import { InvoiceItem } from "../models/invoice-item";
 
 export class InvoiceCalculator {
-  static summary(items: any[], tax = 0, discount = 0) {
+  static summary(
+    items: InvoiceItem[],
+    tax = 0,
+    discount = 0,
+  ): BillingSummary {
     const subtotal = items.reduce(
-      (sum, item) => sum + item.quantity * item.rate,
+      (sum, item) =>
+        sum + item.quantity * item.rate,
       0,
     );
 
-    const discountAmount = subtotal * (discount / 100);
+    const discountAmount =
+      subtotal * (discount / 100);
 
-    const taxable = subtotal - discountAmount;
+    const taxableAmount =
+      subtotal - discountAmount;
 
-    const taxAmount = taxable * (tax / 100);
+    const taxAmount =
+      taxableAmount * (tax / 100);
+
+    const total =
+      taxableAmount + taxAmount;
 
     return {
-      subtotal,
-      discount: discountAmount,
-      tax: taxAmount,
-      total: taxable + taxAmount,
+      subtotal: Number(
+        subtotal.toFixed(2),
+      ),
+
+      taxAmount: Number(
+        taxAmount.toFixed(2),
+      ),
+
+      discountAmount: Number(
+        discountAmount.toFixed(2),
+      ),
+
+      total: Number(
+        total.toFixed(2),
+      ),
     };
   }
 }

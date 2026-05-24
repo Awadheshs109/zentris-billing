@@ -1,13 +1,11 @@
-export interface Customer {
+export interface Branch {
   id?: string;
 
   name: string;
 
-  email: string;
+  address?: string;
 
   phone?: string;
 
   gstNumber?: string;
-
-  address?: string;
 }

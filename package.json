@@ -47,16 +47,18 @@
   },
   "homepage": "https://github.com/Awadheshs109/zentris-billing",
   "devDependencies": {
-    "@types/node": "^25.9.1",
+    "@types/node": "^24.10.1",
     "conventional-changelog-cli": "^5.0.0",
-    "eslint": "^10.4.0",
+    "eslint": "^9.39.1",
     "tsup": "^8.5.1",
     "tsx": "^4.22.3",
-    "typescript": "^6.0.3",
+    "typescript": "^5.9.3",
     "vitest": "^4.1.7"
   },
   "dependencies": {
-    "jspdf": "^4.2.1",
-    "papaparse": "^5.5.3"
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.3",
+    "papaparse": "^5.5.3",
+    "puppeteer": "^24.43.1"
   }
 }

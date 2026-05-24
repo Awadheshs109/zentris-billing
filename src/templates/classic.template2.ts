@@ -303,7 +303,7 @@ ${invoice.company?.email || "support@zentris.com"}
 <br>
 
 GSTIN:
-${invoice.company?.gst || "27ABCDE1234F1Z5"}
+${invoice.company?.gstNumber || "27ABCDE1234F1Z5"}
 
 </div>
 
@@ -346,7 +346,7 @@ BILLING ENGINE
 PAN :
 </span>
 
-${invoice.company?.pan || "ABCDE1234F"}
+${invoice.company?.panNumber || "ABCDE1234F"}
 </td>
 
 <td width="40%" class="invoice-title">
@@ -423,7 +423,7 @@ ${invoice.eway || "78456378"}
 <td width="30%">
 
 <b>Status:</b>
-${invoice.status || "Pending"}
+${invoice.payment?.status || "Pending"}
 
 <br><br>
 

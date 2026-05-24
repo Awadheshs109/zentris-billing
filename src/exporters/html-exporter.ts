@@ -1,98 +1,50 @@
-// src/exporters/html-exporter.ts
+import { Invoice }
+from "../models/invoice";
 
-import { Billing }
-from "../core/billing";
+import { InvoiceNormalizer }
+from "../normalizers/invoice-normalizer";
 
-import {
-  classicInvoiceTemplate
-}
+import { InvoiceCalculator }
+from "../core/invoice";
+
+import { InvoiceRenderer }
+from "../renderers/invoice-renderer";
+
+import { classicInvoiceTemplate }
 from "../templates/classic.template";
 
-import {
-  classicInvoiceTemplate2
-}
+import { classicInvoiceTemplate2 }
 from "../templates/classic.template2";
 
-
-export class HtmlExporter{
+export class HtmlExporter {
 
   static generate(
-    invoice:any,
-    options?:{
-      template?:
-      'classic' |
-      'gst'
-    }
-  ){
+    invoice: Partial<Invoice>,
 
-    const subtotal =
-    invoice.items.reduce(
-    (
-      sum:number,
-      item:any
-    )=>
+    options?: {
+      template?: "classic" | "gst";
+    },
+  ): string {
 
-      sum +
-      (
-        item.quantity *
-        item.rate
-      ),
+    const normalizedInvoice =
+      InvoiceNormalizer.normalize(invoice);
 
-      0
-    );
-
-    const taxAmount =
-    Billing.calculateGST(
-      subtotal,
-      invoice.tax || 0
-    );
-
-    const discountAmount =
-    Billing.calculateDiscount(
-      subtotal,
-      invoice.discount || 0
-    );
-
-    const total =
-    subtotal +
-    taxAmount -
-    discountAmount;
-
-    const summary = {
-
-      subtotal,
-
-      taxAmount,
-
-      discountAmount,
-
-      total
-
-    };
-
-
-    const template =
-    options?.template ||
-    'classic';
-
-
-    if(
-      template === 'gst'
-    ){
-
-      return classicInvoiceTemplate2(
-        invoice,
-        summary
+    const summary =
+      InvoiceCalculator.summary(
+        normalizedInvoice.items,
+        normalizedInvoice.tax || 0,
+        normalizedInvoice.discount || 0,
       );
 
-    }
+    const template =
+      options?.template === "gst"
+        ? classicInvoiceTemplate2
+        : classicInvoiceTemplate;
 
-
-    return classicInvoiceTemplate(
-      invoice,
-      summary
+    return InvoiceRenderer.renderHTML(
+      normalizedInvoice,
+      summary,
+      template,
     );
-
   }
-
 }

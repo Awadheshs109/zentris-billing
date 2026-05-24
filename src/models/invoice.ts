@@ -1,27 +1,75 @@
+import { Company } from "./company";
+import { Customer } from "./customer";
 import { InvoiceItem } from "./invoice-item";
+import { Payment } from "./payment";
 
-// src/models/invoice.ts
+export interface InvoiceTheme {
+  primaryColor?: string;
+  accentColor?: string;
+}
+
+export interface InvoiceBranding {
+  showSoftwareCredit?: boolean;
+
+  softwareCreditText?: string;
+
+  logoText?: string;
+
+  logoSubText?: string;
+}
+
+export interface InvoiceFeatures {
+  showSellerGST?: boolean;
+  showBuyerGST?: boolean;
+  showPAN?: boolean;
+  showTransport?: boolean;
+  showEWay?: boolean;
+  showBankDetails?: boolean;
+  showTerms?: boolean;
+  showSignature?: boolean;
+  showSoftwareCredit?: boolean;
+  showBranchDetails?: boolean;
+  showPaymentDetails?: boolean;
+  showPaymentTransactions?: boolean;
+  showAmountWords?: boolean;
+}
+
 export interface Invoice {
   invoiceNo: string;
+
   date: string;
 
-  company: {
-    name: string;
-    address: string;
-    phone: string;
-    email?: string;
-  };
+  dueDate?: string;
 
-  customer: {
-    name: string;
-    company?: string;
-    address: string;
-    email?: string;
-  };
+  company: Company;
+
+  customer: Customer;
 
   items: InvoiceItem[];
 
-  discount?: number;
+  payment?: Payment;
+
+  features?: InvoiceFeatures;
+
+  branding?: InvoiceBranding;
+
+  theme?: InvoiceTheme;
+
   tax?: number;
+
+  discount?: number;
+
+  transport?: string;
+
+  eway?: string;
+
+  amountWords?: string;
+
   notes?: string;
+
+  signature?: string;
+
+  terms?: string[];
+
+  currency?: string;
 }
